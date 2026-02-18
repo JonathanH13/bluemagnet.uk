@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order / Enquiry — Blue Magnet Ltd</title>
+  <meta name="description" content="Place an order or submit an enquiry to Blue Magnet Ltd.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<script src="js/nav.js"></script>
+
+<main>
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span>Order / Enquiry</div>
+    <h1>Order / Enquiry</h1>
+  </div>
+
+  <div class="form-section">
+
+    <div class="form-intro">
+      <strong>Instructions:</strong> Please complete all fields below. Your information will be used to prepare a quotation and, if confirmed, to raise an invoice and arrange courier delivery to the shipping address provided.<br><br>
+      Fields marked <strong style="color:#ef4444">*</strong> are required. We will respond within 2 working days.
+    </div>
+
+    <form id="orderForm" novalidate>
+
+      <!-- CONTACT DETAILS -->
+      <div class="form-divider">Contact Details</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name <span style="color:#ef4444">*</span></label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name <span style="color:#ef4444">*</span></label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="institution">Institution / Organisation <span style="color:#ef4444">*</span></label>
+        <input type="text" id="institution" name="institution" required autocomplete="organization">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address <span style="color:#ef4444">*</span></label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number <span style="color:#ef4444">*</span></label>
+          <input type="tel" id="phone" name="phone" required autocomplete="tel">
+        </div>
+      </div>
+
+      <!-- BILLING ADDRESS -->
+      <div class="form-divider">Billing Address</div>
+
+      <div class="form-group">
+        <label for="billLine1">Address Line 1 <span style="color:#ef4444">*</span></label>
+        <input type="text" id="billLine1" name="billLine1" required autocomplete="billing address-line1">
+      </div>
+      <div class="form-group">
+        <label for="billLine2">Address Line 2</label>
+        <input type="text" id="billLine2" name="billLine2" autocomplete="billing address-line2">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="billCity">City <span style="color:#ef4444">*</span></label>
+          <input type="text" id="billCity" name="billCity" required autocomplete="billing address-level2">
+        </div>
+        <div class="form-group">
+          <label for="billPostcode">Postcode <span style="color:#ef4444">*</span></label>
+          <input type="text" id="billPostcode" name="billPostcode" required autocomplete="billing postal-code">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="billCountry">Country <span style="color:#ef4444">*</span></label>
+        <input type="text" id="billCountry" name="billCountry" value="United Kingdom" required autocomplete="billing country-name">
+      </div>
+      <div class="form-group">
+        <label for="poNumber">Purchase Order Number (if applicable)</label>
+        <input type="text" id="poNumber" name="poNumber">
+      </div>
+
+      <!-- SHIPPING ADDRESS -->
+      <div class="form-divider">Shipping Address</div>
+
+      <div class="form-group" style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+        <input type="checkbox" id="sameAsBilling" style="width:auto; accent-color:var(--accent);">
+        <label for="sameAsBilling" style="font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text); margin:0; cursor:pointer;">Same as billing address</label>
+      </div>
+
+      <div id="shippingFields">
+        <div class="form-group">
+          <label for="shipAttn">Attention / Recipient Name <span style="color:#ef4444">*</span></label>
+          <input type="text" id="shipAttn" name="shipAttn" required>
+        </div>
+        <div class="form-group">
+          <label for="shipLine1">Address Line 1 <span style="color:#ef4444">*</span></label>
+          <input type="text" id="shipLine1" name="shipLine1" required autocomplete="shipping address-line1">
+        </div>
+        <div class="form-group">
+          <label for="shipLine2">Address Line 2</label>
+          <input type="text" id="shipLine2" name="shipLine2" autocomplete="shipping address-line2">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="shipCity">City <span style="color:#ef4444">*</span></label>
+            <input type="text" id="shipCity" name="shipCity" required autocomplete="shipping address-level2">
+          </div>
+          <div class="form-group">
+            <label for="shipPostcode">Postcode <span style="color:#ef4444">*</span></label>
+            <input type="text" id="shipPostcode" name="shipPostcode" required autocomplete="shipping postal-code">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="shipCountry">Country <span style="color:#ef4444">*</span></label>
+          <input type="text" id="shipCountry" name="shipCountry" value="United Kingdom" required autocomplete="shipping country-name">
+        </div>
+        <div class="form-group">
+          <label for="shipNotes">Delivery Notes (access codes, lab hours, etc.)</label>
+          <textarea id="shipNotes" name="shipNotes" rows="2"></textarea>
+        </div>
+      </div>
+
+      <!-- ORDER DETAILS -->
+      <div class="form-divider">Order / Enquiry Details</div>
+
+      <div class="form-group">
+        <label for="product">Product / Service <span style="color:#ef4444">*</span></label>
+        <select id="product" name="product" required>
+          <option value="">— Select —</option>
+          <optgroup label="tACS Challenge Hardware">
+            <option value="Stimulus-Response Unit (£634)">Stimulus-Response Unit — £634</option>
+            <option value="LED Display Unit (£367)">LED Display Unit — £367</option>
+            <option value="Complete Device Kit (£485)">Complete Device Kit — £485</option>
+          </optgroup>
+          <optgroup label="TI Testing PCB">
+            <option value="TI Testing PCB - Assembled (£96)">TI Testing PCB (Assembled) — £96</option>
+            <option value="TI Testing PCB - Kit (£66)">TI Testing PCB (Kit) — £66</option>
+          </optgroup>
+          <optgroup label="Switching Module">
+            <option value="Montage Switch Box (£376)">Montage Switch Box — £376</option>
+            <option value="Montage Cable Set (£212)">Montage Cable Set — £212</option>
+          </optgroup>
+          <option value="Bespoke / Custom">Bespoke / Custom Design</option>
+          <option value="General Enquiry">General Enquiry</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" style="max-width:120px;">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Additional Requirements / Message <span style="color:#ef4444">*</span></label>
+        <textarea id="message" name="message" rows="5" required placeholder="Please describe your requirements, any customisations needed, or questions you have."></textarea>
+      </div>
+
+      <div class="privacy-note">
+        <strong style="color:var(--text);">Privacy notice:</strong> The information you submit will be used solely to prepare a quotation, raise an invoice, and arrange delivery. Your data will not be shared with third parties. Blue Magnet Ltd complies with UK GDPR. You may request deletion of your data at any time by contacting us directly.
+      </div>
+
+      <div style="margin-top:2rem;">
+        <button type="submit" class="btn btn-solid" id="submitBtn">Submit Enquiry</button>
+      </div>
+
+      <div id="form-status"></div>
+
+    </form>
+  </div>
+</main>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// AIRTABLE CONFIGURATION
+// Replace the two values below after setting up your Airtable base.
+// See README.md for step-by-step instructions.
+// ─────────────────────────────────────────────────────────────────────────────
+const AIRTABLE_BASE_ID  = 'YOUR_BASE_ID_HERE';   // e.g. appXXXXXXXXXXXXXX
+const AIRTABLE_TABLE    = 'Orders';               // Must match your table name exactly
+const AIRTABLE_API_KEY  = 'YOUR_API_KEY_HERE';    // Personal Access Token from airtable.com/account
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Same-as-billing toggle
+const sameChk = document.getElementById('sameAsBilling');
+const shipDiv = document.getElementById('shippingFields');
+
+sameChk.addEventListener('change', () => {
+  if (sameChk.checked) {
+    shipDiv.style.display = 'none';
+    shipDiv.querySelectorAll('[required]').forEach(el => el.removeAttribute('required'));
+  } else {
+    shipDiv.style.display = 'block';
+    ['shipAttn','shipLine1','shipCity','shipPostcode','shipCountry'].forEach(id => {
+      document.getElementById(id).setAttribute('required','');
+    });
+  }
+});
+
+// Form submission
+document.getElementById('orderForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn    = document.getElementById('submitBtn');
+  const status = document.getElementById('form-status');
+
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+  status.style.display = 'none';
+
+  const f = this;
+  const same = sameChk.checked;
+
+  const fields = {
+    'First Name':          f.firstName.value.trim(),
+    'Last Name':           f.lastName.value.trim(),
+    'Institution':         f.institution.value.trim(),
+    'Email':               f.email.value.trim(),
+    'Phone':               f.phone.value.trim(),
+    'Billing Line 1':      f.billLine1.value.trim(),
+    'Billing Line 2':      f.billLine2.value.trim(),
+    'Billing City':        f.billCity.value.trim(),
+    'Billing Postcode':    f.billPostcode.value.trim(),
+    'Billing Country':     f.billCountry.value.trim(),
+    'PO Number':           f.poNumber.value.trim(),
+    'Shipping Attn':       same ? f.firstName.value.trim() + ' ' + f.lastName.value.trim() : f.shipAttn.value.trim(),
+    'Shipping Line 1':     same ? f.billLine1.value.trim()   : f.shipLine1.value.trim(),
+    'Shipping Line 2':     same ? f.billLine2.value.trim()   : f.shipLine2.value.trim(),
+    'Shipping City':       same ? f.billCity.value.trim()    : f.shipCity.value.trim(),
+    'Shipping Postcode':   same ? f.billPostcode.value.trim(): f.shipPostcode.value.trim(),
+    'Shipping Country':    same ? f.billCountry.value.trim() : f.shipCountry.value.trim(),
+    'Delivery Notes':      same ? ''                         : f.shipNotes.value.trim(),
+    'Product':             f.product.value,
+    'Quantity':            parseInt(f.quantity.value) || 1,
+    'Message':             f.message.value.trim(),
+    'Submitted':           new Date().toISOString(),
+    'Status':              'New',
+  };
+
+  try {
+    const res = await fetch(
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+          'Content-Type':  'application/json',
+        },
+        body: JSON.stringify({ fields }),
+      }
+    );
+
+    if (res.ok) {
+      status.className = 'success';
+      status.textContent = '✓ Enquiry received. We will respond within 2 working days.';
+      status.style.display = 'block';
+      f.reset();
+      shipDiv.style.display = 'block';
+    } else {
+      const err = await res.json();
+      throw new Error(err.error?.message || 'Submission failed');
+    }
+  } catch(err) {
+    status.className = 'error';
+    status.textContent = '✗ Submission failed: ' + err.message + '. Please email jhoward@invicro.com directly.';
+    status.style.display = 'block';
+  }
+
+  btn.textContent = 'Submit Enquiry';
+  btn.disabled = false;
+});
+</script>
+
+</body>
+</html>
