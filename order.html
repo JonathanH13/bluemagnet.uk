@@ -176,17 +176,6 @@
 </main>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
-// AIRTABLE CONFIGURATION
-// Replace the two values below after setting up your Airtable base.
-// See README.md for step-by-step instructions.
-// ─────────────────────────────────────────────────────────────────────────────
-const AIRTABLE_BASE_ID  = 'YOUR_BASE_ID_HERE';   // e.g. appXXXXXXXXXXXXXX
-const AIRTABLE_TABLE    = 'Orders';               // Must match your table name exactly
-const AIRTABLE_API_KEY  = 'YOUR_API_KEY_HERE';    // Personal Access Token from airtable.com/account
-
-// ─────────────────────────────────────────────────────────────────────────────
-
 // Same-as-billing toggle
 const sameChk = document.getElementById('sameAsBilling');
 const shipDiv = document.getElementById('shippingFields');
@@ -203,7 +192,7 @@ sameChk.addEventListener('change', () => {
   }
 });
 
-// Form submission
+// Form submission — sends to Netlify Function, NOT directly to Airtable
 document.getElementById('orderForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn    = document.getElementById('submitBtn');
@@ -213,47 +202,41 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
   btn.disabled = true;
   status.style.display = 'none';
 
-  const f = this;
+  const f    = this;
   const same = sameChk.checked;
 
   const fields = {
-    'First Name':          f.firstName.value.trim(),
-    'Last Name':           f.lastName.value.trim(),
-    'Institution':         f.institution.value.trim(),
-    'Email':               f.email.value.trim(),
-    'Phone':               f.phone.value.trim(),
-    'Billing Line 1':      f.billLine1.value.trim(),
-    'Billing Line 2':      f.billLine2.value.trim(),
-    'Billing City':        f.billCity.value.trim(),
-    'Billing Postcode':    f.billPostcode.value.trim(),
-    'Billing Country':     f.billCountry.value.trim(),
-    'PO Number':           f.poNumber.value.trim(),
-    'Shipping Attn':       same ? f.firstName.value.trim() + ' ' + f.lastName.value.trim() : f.shipAttn.value.trim(),
-    'Shipping Line 1':     same ? f.billLine1.value.trim()   : f.shipLine1.value.trim(),
-    'Shipping Line 2':     same ? f.billLine2.value.trim()   : f.shipLine2.value.trim(),
-    'Shipping City':       same ? f.billCity.value.trim()    : f.shipCity.value.trim(),
-    'Shipping Postcode':   same ? f.billPostcode.value.trim(): f.shipPostcode.value.trim(),
-    'Shipping Country':    same ? f.billCountry.value.trim() : f.shipCountry.value.trim(),
-    'Delivery Notes':      same ? ''                         : f.shipNotes.value.trim(),
-    'Product':             f.product.value,
-    'Quantity':            parseInt(f.quantity.value) || 1,
-    'Message':             f.message.value.trim(),
-    'Submitted':           new Date().toISOString(),
-    'Status':              'New',
+    'First Name':        f.firstName.value.trim(),
+    'Last Name':         f.lastName.value.trim(),
+    'Institution':       f.institution.value.trim(),
+    'Email':             f.email.value.trim(),
+    'Phone':             f.phone.value.trim(),
+    'Billing Line 1':    f.billLine1.value.trim(),
+    'Billing Line 2':    f.billLine2.value.trim(),
+    'Billing City':      f.billCity.value.trim(),
+    'Billing Postcode':  f.billPostcode.value.trim(),
+    'Billing Country':   f.billCountry.value.trim(),
+    'PO Number':         f.poNumber.value.trim(),
+    'Shipping Attn':     same ? f.firstName.value.trim() + ' ' + f.lastName.value.trim() : f.shipAttn.value.trim(),
+    'Shipping Line 1':   same ? f.billLine1.value.trim()    : f.shipLine1.value.trim(),
+    'Shipping Line 2':   same ? f.billLine2.value.trim()    : f.shipLine2.value.trim(),
+    'Shipping City':     same ? f.billCity.value.trim()     : f.shipCity.value.trim(),
+    'Shipping Postcode': same ? f.billPostcode.value.trim() : f.shipPostcode.value.trim(),
+    'Shipping Country':  same ? f.billCountry.value.trim()  : f.shipCountry.value.trim(),
+    'Delivery Notes':    same ? ''                          : f.shipNotes.value.trim(),
+    'Product':           f.product.value,
+    'Quantity':          parseInt(f.quantity.value) || 1,
+    'Message':           f.message.value.trim(),
+    'Submitted':         new Date().toISOString(),
+    'Status':            'New',
   };
 
   try {
-    const res = await fetch(
-      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-          'Content-Type':  'application/json',
-        },
-        body: JSON.stringify({ fields }),
-      }
-    );
+    const res = await fetch('/.netlify/functions/submit-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(fields),
+    });
 
     if (res.ok) {
       status.className = 'success';
@@ -263,7 +246,7 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
       shipDiv.style.display = 'block';
     } else {
       const err = await res.json();
-      throw new Error(err.error?.message || 'Submission failed');
+      throw new Error(err.error || 'Submission failed');
     }
   } catch(err) {
     status.className = 'error';
