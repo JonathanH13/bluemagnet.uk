@@ -81,7 +81,7 @@ nav {
 
 .nav-brand .tag {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   color: var(--accent);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -394,7 +394,7 @@ main { position: relative; z-index: 1; }
 
 .product-ref {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   letter-spacing: 0.2em;
   color: var(--accent);
   text-transform: uppercase;
@@ -556,7 +556,7 @@ main { position: relative; z-index: 1; }
 
 .form-divider {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   letter-spacing: 0.2em;
   color: var(--accent);
   text-transform: uppercase;
@@ -655,7 +655,7 @@ main { position: relative; z-index: 1; }
 
 .contact-item-label {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   letter-spacing: 0.2em;
   color: var(--text-dim);
   text-transform: uppercase;
@@ -704,7 +704,7 @@ footer {
 
 .footer-meta {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   color: var(--dim);
   letter-spacing: 0.1em;
 }
